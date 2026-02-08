@@ -5,6 +5,8 @@ import { BackupTools } from '@/components/BackupTools';
 import { NewSessionDialog } from '@/components/NewSessionDialog';
 import { Button } from '@/components/ui/button';
 import { Plus, BookOpen, Smile, Meh, Moon, Clock, Settings } from 'lucide-react';
+import { Progress } from '@/components/ui/progress';
+import { StudyStreak } from '@/components/StudyStreak';
 
 const moodIcons = {
   happy: <Smile size={16} className="text-success" />,
@@ -47,6 +49,9 @@ const Index = () => {
             </Button>
           </div>
         </div>
+
+        {/* Study Streak */}
+        <StudyStreak />
 
         {/* Settings */}
         {showSettings && (
@@ -93,11 +98,14 @@ const Index = () => {
                         <span>{total} word{total !== 1 ? 's' : ''}</span>
                       </div>
                     </div>
-                    <div className="shrink-0 ml-4">
+                    <div className="shrink-0 ml-4 min-w-[100px]">
                       {total > 0 ? (
-                        <span className={mastered === total ? 'mastery-badge-success' : 'mastery-badge-pending'}>
-                          {mastered}/{total} mastered
-                        </span>
+                        <div className="space-y-1">
+                          <span className={mastered === total ? 'mastery-badge-success' : 'mastery-badge-pending'}>
+                            {mastered}/{total}
+                          </span>
+                          <Progress value={(mastered / total) * 100} className="h-1.5" />
+                        </div>
                       ) : (
                         <span className="text-xs text-muted-foreground">empty</span>
                       )}

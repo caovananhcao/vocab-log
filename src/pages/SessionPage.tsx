@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/button';
 import { generateId } from '@/lib/storage';
 import { ArrowLeft, Plus, Play, Smile, Meh, Moon, Trash2 } from 'lucide-react';
 import { deleteSession } from '@/lib/storage';
+import { Progress } from '@/components/ui/progress';
+import { MilestoneMessage } from '@/components/MilestoneMessage';
 
 type Filter = 'all' | 'mastered' | 'unmastered';
 
@@ -90,6 +92,19 @@ const SessionPage = () => {
             </p>
           </div>
         </div>
+
+        {/* Progress bar + milestone */}
+        {total > 0 && (
+          <div className="space-y-2">
+            <div className="flex items-center gap-3">
+              <Progress value={(mastered / total) * 100} className="h-2 flex-1" />
+              <span className="text-xs text-muted-foreground font-medium shrink-0">
+                {mastered}/{total}
+              </span>
+            </div>
+            <MilestoneMessage mastered={mastered} total={total} />
+          </div>
+        )}
 
         {/* Toolbar */}
         <div className="flex flex-wrap items-center gap-2">
